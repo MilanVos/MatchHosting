@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Award, Download, ArrowLeft } from "lucide-react";
+import { Award, ArrowLeft } from "lucide-react";
+import PrintButton from "@/components/PrintButton";
 
 export default async function CertificatePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -74,13 +75,7 @@ export default async function CertificatePage({ params }: { params: Promise<{ id
         </div>
 
         <div className="mt-6 flex justify-center">
-          <button
-            onClick={() => window.print()}
-            className="inline-flex items-center gap-2 gradient-bg rounded-xl px-6 py-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity"
-          >
-            <Download className="h-4 w-4" />
-            Downloaden / Afdrukken
-          </button>
+          <PrintButton />
         </div>
       </div>
     </div>
