@@ -5,7 +5,7 @@ nixPkgs = ["nodejs_22", "openssl"]
 cmds = ["npm install"]
 
 [phases.build]
-cmds = ["npx prisma generate", "npx next build"]
+cmds = ["npx prisma generate", "npx next build", "cp -r .next/static .next/standalone/.next/static", "cp -r public .next/standalone/public"]
 
 [start]
 cmd = "npx prisma db push --accept-data-loss; HOSTNAME=0.0.0.0 node .next/standalone/server.js"
