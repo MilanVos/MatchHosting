@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { MessageSquare, Heart, Plus, Pin, Search } from "lucide-react";
+import StaffBadge from "@/components/StaffBadge";
 
 const CATEGORIES = ["algemeen", "netwerken", "cybersecurity", "webdev", "cloud", "sysadmin", "programmeren", "vragen"];
 
@@ -14,7 +15,7 @@ type Post = {
   category: string;
   pinned: boolean;
   createdAt: string;
-  user: { id: string; name: string; level: number };
+  user: { id: string; name: string; level: number; role: string };
   _count: { replies: number; likes: number };
 };
 
@@ -160,7 +161,10 @@ export default function ForumPage() {
                 </div>
               </div>
               <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
-                <span className="text-indigo-400 font-medium">Lvl {post.user.level} {post.user.name}</span>
+                <span className="flex items-center gap-1.5 text-indigo-400 font-medium">
+                  Lvl {post.user.level} {post.user.name}
+                  <StaffBadge role={post.user.role as "ADMIN" | "INSTRUCTOR" | "STUDENT"} />
+                </span>
                 <span className="flex items-center gap-1"><MessageSquare className="h-3.5 w-3.5" />{post._count.replies}</span>
                 <span className="flex items-center gap-1"><Heart className="h-3.5 w-3.5" />{post._count.likes}</span>
                 <span className="ml-auto">{new Date(post.createdAt).toLocaleDateString("nl-NL")}</span>

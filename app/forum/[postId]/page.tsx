@@ -5,11 +5,12 @@ import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { ArrowLeft, Heart, MessageSquare, Send } from "lucide-react";
+import StaffBadge from "@/components/StaffBadge";
 
-type Reply = { id: string; content: string; createdAt: string; user: { name: string; level: number } };
+type Reply = { id: string; content: string; createdAt: string; user: { name: string; level: number; role: string } };
 type Post = {
   id: string; title: string; content: string; category: string; createdAt: string;
-  user: { name: string; level: number };
+  user: { name: string; level: number; role: string };
   replies: Reply[];
   _count: { likes: number };
 };
@@ -71,7 +72,10 @@ export default function ForumPostPage() {
         <h1 className="text-2xl font-bold text-white mb-4">{post.title}</h1>
         <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">{post.content}</p>
         <div className="flex items-center justify-between mt-6 pt-6 border-t border-[#2d2d3e]">
-          <span className="text-indigo-400 text-sm font-medium">Lvl {post.user.level} {post.user.name}</span>
+          <span className="flex items-center gap-1.5 text-indigo-400 text-sm font-medium">
+            Lvl {post.user.level} {post.user.name}
+            <StaffBadge role={post.user.role as "ADMIN" | "INSTRUCTOR" | "STUDENT"} />
+          </span>
           {session && (
             <button
               onClick={handleLike}
@@ -94,7 +98,10 @@ export default function ForumPostPage() {
           <div key={r.id} className="rounded-xl border border-[#1e1e2e] bg-[#0f0f16] p-5">
             <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">{r.content}</p>
             <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
-              <span className="text-indigo-400">Lvl {r.user.level} {r.user.name}</span>
+              <span className="flex items-center gap-1.5 text-indigo-400">
+                Lvl {r.user.level} {r.user.name}
+                <StaffBadge role={r.user.role as "ADMIN" | "INSTRUCTOR" | "STUDENT"} />
+              </span>
               <span>{new Date(r.createdAt).toLocaleDateString("nl-NL")}</span>
             </div>
           </div>

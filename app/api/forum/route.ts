@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   const posts = await prisma.post.findMany({
     where: category ? { category } : undefined,
     include: {
-      user: { select: { id: true, name: true, avatar: true, level: true } },
+      user: { select: { id: true, name: true, avatar: true, level: true, role: true } },
       _count: { select: { replies: true, likes: true } },
     },
     orderBy: [{ pinned: "desc" }, { createdAt: "desc" }],
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
 
   const post = await prisma.post.create({
     data: { userId: session.user.id, title, content, category: category ?? "algemeen" },
-    include: { user: { select: { id: true, name: true, avatar: true, level: true } } },
+    include: { user: { select: { id: true, name: true, avatar: true, level: true, role: true } } },
   });
 
   return NextResponse.json(post);

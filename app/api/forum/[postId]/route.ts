@@ -8,9 +8,9 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ pos
   const post = await prisma.post.findUnique({
     where: { id: postId },
     include: {
-      user: { select: { id: true, name: true, avatar: true, level: true } },
+      user: { select: { id: true, name: true, avatar: true, level: true, role: true } },
       replies: {
-        include: { user: { select: { id: true, name: true, avatar: true, level: true } } },
+        include: { user: { select: { id: true, name: true, avatar: true, level: true, role: true } } },
         orderBy: { createdAt: "asc" },
       },
       _count: { select: { likes: true } },
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ pos
 
   const reply = await prisma.reply.create({
     data: { userId: session.user.id, postId, content },
-    include: { user: { select: { id: true, name: true, avatar: true, level: true } } },
+    include: { user: { select: { id: true, name: true, avatar: true, level: true, role: true } } },
   });
 
   return NextResponse.json(reply);
