@@ -8,4 +8,4 @@ cmds = ["npm install"]
 cmds = ["npx prisma generate", "npx next build"]
 
 [start]
-cmd = "npx prisma migrate deploy && npx next start -p ${PORT:-3000}"
+cmd = "npx prisma migrate deploy; npx next start -p ${PORT:-3000}"
