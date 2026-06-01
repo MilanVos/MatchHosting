@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { slugify } from "@/lib/utils";
 import bcrypt from "bcryptjs";
+import { seedBadges } from "@/lib/gamification";
 
 export async function POST() {
   const session = await auth();
@@ -113,4 +114,7 @@ export async function POST() {
     adminEmail,
     adminPassword: "Admin123!",
   });
+
+  await seedBadges();
+  return NextResponse.json({ ok: true, courses: createdCourses, lessons: createdLessons, adminEmail, adminPassword: "Admin123!", badges: "seeded" });
 }

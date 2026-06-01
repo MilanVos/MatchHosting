@@ -12,6 +12,7 @@ export default auth((req) => {
 
   const protectedRoutes = ["/dashboard", "/courses"];
   const adminRoutes = ["/admin"];
+  const instructorRoutes = ["/instructor"];
   const authRoutes = ["/auth/login", "/auth/register"];
 
   const isProtectedRoute = protectedRoutes.some((route) =>
@@ -20,11 +21,18 @@ export default auth((req) => {
   const isAdminRoute = adminRoutes.some((route) =>
     nextUrl.pathname.startsWith(route)
   );
+  const isInstructorRoute = instructorRoutes.some((route) =>
+    nextUrl.pathname.startsWith(route)
+  );
   const isAuthRoute = authRoutes.some((route) =>
     nextUrl.pathname.startsWith(route)
   );
 
   if (isAdminRoute && (!isLoggedIn || !isAdmin)) {
+    return NextResponse.redirect(new URL("/auth/login", nextUrl));
+  }
+
+  if (isInstructorRoute && (!isLoggedIn || (session?.user?.role !== "INSTRUCTOR" && !isAdmin))) {
     return NextResponse.redirect(new URL("/auth/login", nextUrl));
   }
 

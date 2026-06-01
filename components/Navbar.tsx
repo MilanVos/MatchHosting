@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
-import { Menu, X, Zap, BookOpen, LayoutDashboard, Shield, LogOut, LogIn } from "lucide-react";
+import { Menu, X, Zap, BookOpen, LayoutDashboard, Shield, LogOut, LogIn, MessageSquare, Code2 } from "lucide-react";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -11,7 +11,10 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/courses", label: "Cursussen", icon: BookOpen },
+    { href: "/forum", label: "Forum", icon: MessageSquare },
+    { href: "/editor", label: "Editor", icon: Code2 },
     ...(session ? [{ href: "/dashboard", label: "Dashboard", icon: LayoutDashboard }] : []),
+    ...(session?.user?.role === "INSTRUCTOR" ? [{ href: "/instructor", label: "Docent", icon: Shield }] : []),
     ...(session?.user?.role === "ADMIN" ? [{ href: "/admin", label: "Admin", icon: Shield }] : []),
   ];
 
