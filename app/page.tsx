@@ -12,6 +12,7 @@ import {
   Trophy,
   CheckCircle2,
 } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 
 const categories = [
   {
@@ -73,13 +74,16 @@ const features = [
   { icon: CheckCircle2, text: "Gratis te starten" },
 ];
 
-const stats = [
-  { icon: BookOpen, value: "50+", label: "Cursussen" },
-  { icon: Users, value: "500+", label: "Studenten" },
-  { icon: Trophy, value: "100%", label: "Gratis te starten" },
-];
+export default async function HomePage() {
+  const userCount = await prisma.user.count();
+  const courseCount = await prisma.course.count({ where: { published: true } });
 
-export default function HomePage() {
+  const stats = [
+    { icon: BookOpen, value: courseCount > 0 ? `${courseCount}+` : "50+", label: "Cursussen" },
+    { icon: Users, value: userCount > 0 ? `${userCount}+` : "0", label: "Studenten" },
+    { icon: Trophy, value: "100%", label: "Gratis te starten" },
+  ];
+
   return (
     <div className="overflow-hidden">
       <section className="relative pt-20 pb-32 px-4">
