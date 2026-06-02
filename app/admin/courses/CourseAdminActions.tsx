@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Edit2, Trash2, Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
+import { Plus, Edit2, Trash2, Eye, EyeOff, BookOpen } from "lucide-react";
 
 interface Course {
   id: string;
@@ -112,6 +113,13 @@ export default function CourseAdminActions({ mode, course }: Props) {
 
   return (
     <div className="flex items-center gap-2">
+      <Link
+        href={`/instructor/courses/${course!.id}/lessons`}
+        className="p-1.5 rounded-lg text-gray-500 hover:text-indigo-400 hover:bg-indigo-400/10 transition-colors"
+        title="Lessen beheren"
+      >
+        <BookOpen className="h-4 w-4" />
+      </Link>
       <button
         onClick={togglePublish}
         className="p-1.5 rounded-lg text-gray-500 hover:text-white hover:bg-[#2d2d3e] transition-colors"
