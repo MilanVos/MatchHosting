@@ -128,6 +128,98 @@ export async function POST() {
         },
       ],
     },
+    {
+      title: "HTML & CSS voor Beginners",
+      description: "Bouw je eerste website van nul. Leer HTML structuur en CSS styling — geen voorkennis nodig.",
+      category: "webdev",
+      level: "BEGINNER" as const,
+      lessons: [
+        {
+          title: "Je eerste HTML pagina",
+          content: "# HTML Basis\n\nHTML (HyperText Markup Language) is de taal van het web. Elke website is gebouwd met HTML.\n\n## Je eerste pagina\n\nMaak een bestand `index.html` aan:\n\n```html\n<!DOCTYPE html>\n<html lang=\"nl\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Mijn eerste website</title>\n</head>\n<body>\n  <h1>Hallo Wereld!</h1>\n  <p>Dit is mijn eerste website.</p>\n</body>\n</html>\n```\n\nOpen dit bestand in je browser — en je ziet je eerste website!\n\n## Veelgebruikte tags\n\n```html\n<h1> t/m <h6>   Koppen (h1 = groot, h6 = klein)\n<p>             Paragraaf\n<a href=\"...\">  Link\n<img src=\"...\"> Afbeelding\n<ul> / <li>     Lijst\n<div>           Blok-container\n<span>          Inline-container\n<strong>        Vetgedrukt\n<em>            Cursief\n```\n\n## Links en afbeeldingen\n\n```html\n<a href=\"https://mathhosting.nl\">Bezoek MathHosting</a>\n\n<img src=\"logo.png\" alt=\"Logo\" width=\"200\">\n```",
+        },
+        {
+          title: "CSS Styling",
+          content: "# CSS Basis\n\nCSS (Cascading Style Sheets) maakt je pagina mooi.\n\n## CSS koppelen\n\n```html\n<link rel=\"stylesheet\" href=\"style.css\">\n```\n\n## `style.css`\n\n```css\n/* Achtergrond en lettertype */\nbody {\n  background-color: #f0f0f0;\n  font-family: Arial, sans-serif;\n  margin: 0;\n  padding: 20px;\n}\n\n/* Koppen */\nh1 {\n  color: #333333;\n  font-size: 2rem;\n}\n\n/* Paragrafen */\np {\n  color: #666666;\n  line-height: 1.6;\n}\n\n/* Een knop */\n.knop {\n  background-color: #6366f1;\n  color: white;\n  padding: 10px 20px;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n}\n\n.knop:hover {\n  background-color: #4f46e5;\n}\n```\n\n## Selectors\n\n```css\np          { }   /* alle <p> elementen */\n.klasse    { }   /* elementen met class=\"klasse\" */\n#id        { }   /* element met id=\"id\" */\ndiv p      { }   /* <p> binnen een <div> */\n```",
+        },
+        {
+          title: "Flexbox Layout",
+          content: "# Layout met Flexbox\n\nMet Flexbox plaats je elementen naast of onder elkaar.\n\n## Basis\n\n```html\n<div class=\"container\">\n  <div class=\"item\">1</div>\n  <div class=\"item\">2</div>\n  <div class=\"item\">3</div>\n</div>\n```\n\n```css\n.container {\n  display: flex;\n  gap: 20px;              /* ruimte tussen items */\n  justify-content: center; /* horizontaal centreren */\n  align-items: center;     /* verticaal centreren */\n  flex-wrap: wrap;         /* doorbreek naar nieuwe regel */\n}\n\n.item {\n  background: #6366f1;\n  color: white;\n  padding: 20px;\n  border-radius: 8px;\n  flex: 1;                 /* items verdelen ruimte gelijk */\n  min-width: 150px;\n}\n```\n\n## Navigatiebalk met Flexbox\n\n```css\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0 20px;\n  background: #1e1e2e;\n  height: 60px;\n}\n\nnav a {\n  color: white;\n  text-decoration: none;\n  padding: 8px 16px;\n}\n\nnav a:hover {\n  background: rgba(255,255,255,0.1);\n  border-radius: 6px;\n}\n```",
+        },
+      ],
+    },
+    {
+      title: "JavaScript voor Beginners",
+      description: "Leer programmeren met JavaScript — de taal van het web. Van variabelen tot functies en DOM-manipulatie.",
+      category: "programming",
+      level: "BEGINNER" as const,
+      lessons: [
+        {
+          title: "Variabelen en Datatypes",
+          content: "# JavaScript Basis\n\nJavaScript maakt websites interactief. Je kunt het direct in de browser uitvoeren.\n\n## Developer Tools openen\n\nDruk op **F12** in je browser → ga naar **Console** tab.\n\n## Variabelen\n\n```javascript\nlet naam = \"Milan\";          // tekst (string)\nlet leeftijd = 20;            // getal (number)\nlet isStudent = true;         // waar/onwaar (boolean)\nlet server = null;            // leeg\n\nconsole.log(naam);            // Milan\nconsole.log(leeftijd + 5);    // 25\n```\n\n## `let` vs `const`\n\n```javascript\nlet score = 0;       // kan veranderen\nscore = 10;          // OK\n\nconst MAX = 100;     // kan NIET veranderen\nMAX = 200;           // ERROR!\n```\n\n## Strings\n\n```javascript\nlet voornaam = \"Milan\";\nlet achternaam = \"Vos\";\n\n// Samenvoegen\nlet volledig = voornaam + \" \" + achternaam;\n\n// Template literal (makkelijker)\nlet begroeting = `Hallo, ${voornaam}!`;\nconsole.log(begroeting); // Hallo, Milan!\n\nconsole.log(voornaam.length);       // 5\nconsole.log(voornaam.toUpperCase()); // MILAN\n```",
+        },
+        {
+          title: "Functies en Condities",
+          content: "# Functies en If/Else\n\n## Functies\n\n```javascript\n// Functie definiëren\nfunction begroet(naam) {\n  return `Hallo, ${naam}!`;\n}\n\n// Functie aanroepen\nlet bericht = begroet(\"Milan\");\nconsole.log(bericht); // Hallo, Milan!\n\n// Arrow function (moderne syntax)\nconst optellen = (a, b) => a + b;\nconsole.log(optellen(3, 4)); // 7\n```\n\n## If / Else\n\n```javascript\nlet punten = 75;\n\nif (punten >= 90) {\n  console.log(\"Uitstekend!\");\n} else if (punten >= 60) {\n  console.log(\"Geslaagd!\");\n} else {\n  console.log(\"Niet geslaagd.\");\n}\n// Output: Geslaagd!\n```\n\n## For Loop\n\n```javascript\n// Tellen van 1 tot 5\nfor (let i = 1; i <= 5; i++) {\n  console.log(`Stap ${i}`);\n}\n\n// Array doorlopen\nconst spelers = [\"Milan\", \"Lisa\", \"Tom\"];\nfor (const speler of spelers) {\n  console.log(`Speler: ${speler}`);\n}\n```",
+        },
+        {
+          title: "DOM Manipulatie",
+          content: "# Webpagina aanpassen met JavaScript\n\nDOM (Document Object Model) is de structuur van je HTML pagina. Met JavaScript kun je die aanpassen.\n\n## HTML instellen\n\n```html\n<h1 id=\"titel\">Hallo!</h1>\n<p id=\"tekst\">Klik op de knop.</p>\n<button id=\"knop\">Klik mij</button>\n<ul id=\"lijst\"></ul>\n```\n\n## JavaScript\n\n```javascript\n// Element ophalen\nconst titel = document.getElementById(\"titel\");\nconst knop = document.getElementById(\"knop\");\nconst lijst = document.getElementById(\"lijst\");\n\n// Tekst aanpassen\ntitel.textContent = \"JavaScript werkt!\";\n\n// Klik event\nknop.addEventListener(\"click\", () => {\n  titel.style.color = \"#6366f1\";\n  titel.textContent = \"Je hebt geklikt!\";\n});\n\n// Element toevoegen aan lijst\nconst items = [\"Item 1\", \"Item 2\", \"Item 3\"];\nitems.forEach(item => {\n  const li = document.createElement(\"li\");\n  li.textContent = item;\n  lijst.appendChild(li);\n});\n\n// Klasse toevoegen/verwijderen\ntitel.classList.add(\"actief\");\ntitel.classList.remove(\"actief\");\ntitel.classList.toggle(\"actief\");\n```",
+        },
+      ],
+    },
+    {
+      title: "Python voor Beginners",
+      description: "Begin met Python — een van de makkelijkste en meest gebruikte programmeertalen. Perfect voor automatisering, scripts en data.",
+      category: "programming",
+      level: "BEGINNER" as const,
+      lessons: [
+        {
+          title: "Python Installeren & Eerste Script",
+          content: "# Python Basis\n\nPython is simpel te leren en enorm krachtig. Het wordt gebruikt voor scripts, automatisering, web en AI.\n\n## Installeren\n\nDownload Python op [python.org](https://python.org) → installeer met \"Add to PATH\" aangevinkt.\n\n```bash\npython --version   # controleer installatie\npython             # open interactieve modus\n```\n\n## Je eerste script (`hallo.py`)\n\n```python\nprint(\"Hallo Wereld!\")\nprint(\"Welkom bij MathHosting\")\n\nnaam = input(\"Wat is je naam? \")\nprint(f\"Hoi {naam}, welkom!\")\n```\n\nUitvoeren:\n```bash\npython hallo.py\n```\n\n## Variabelen\n\n```python\nnaam = \"Milan\"          # string\nleeftijd = 20           # integer\nprijs = 9.99            # float\nis_student = True       # boolean\n\nprint(type(naam))       # <class 'str'>\nprint(type(leeftijd))   # <class 'int'>\n```",
+        },
+        {
+          title: "Lijsten en Lussen",
+          content: "# Lijsten en Lussen in Python\n\n## Lijsten (Lists)\n\n```python\nservers = [\"mc.server1.nl\", \"mc.server2.nl\", \"mc.server3.nl\"]\n\nprint(servers[0])        # mc.server1.nl\nprint(len(servers))      # 3\n\nservers.append(\"mc.server4.nl\")  # toevoegen\nservers.remove(\"mc.server2.nl\")  # verwijderen\n\nprint(servers)  # ['mc.server1.nl', 'mc.server3.nl', 'mc.server4.nl']\n```\n\n## For Loop\n\n```python\nfor server in servers:\n    print(f\"Server: {server}\")\n\n# Tellen\nfor i in range(1, 6):   # 1 t/m 5\n    print(f\"Stap {i}\")\n```\n\n## If / Else\n\n```python\npunten = 75\n\nif punten >= 90:\n    print(\"Uitstekend!\")\nelif punten >= 60:\n    print(\"Geslaagd!\")\nelse:\n    print(\"Niet geslaagd.\")\n```\n\n## Functies\n\n```python\ndef begroet(naam, rol=\"student\"):\n    return f\"Hallo {naam}, je bent {rol}!\"\n\nprint(begroet(\"Milan\"))\nprint(begroet(\"Lisa\", \"docent\"))\n```",
+        },
+        {
+          title: "Bestanden lezen en schrijven",
+          content: "# Bestanden in Python\n\nPython kan bestanden lezen, schrijven en verwerken — handig voor logs, configs en scripts.\n\n## Bestand schrijven\n\n```python\n# Nieuw bestand aanmaken\nwith open(\"servers.txt\", \"w\") as bestand:\n    bestand.write(\"mc.server1.nl\\n\")\n    bestand.write(\"mc.server2.nl\\n\")\n    bestand.write(\"mc.server3.nl\\n\")\n\nprint(\"Bestand aangemaakt!\")\n```\n\n## Bestand lezen\n\n```python\nwith open(\"servers.txt\", \"r\") as bestand:\n    regels = bestand.readlines()\n\nfor regel in regels:\n    print(regel.strip())  # .strip() verwijdert newline\n```\n\n## CSV bestanden\n\n```python\nimport csv\n\n# Schrijven\nwith open(\"spelers.csv\", \"w\", newline=\"\") as f:\n    writer = csv.writer(f)\n    writer.writerow([\"naam\", \"kills\", \"deaths\"])\n    writer.writerow([\"Milan\", 50, 10])\n    writer.writerow([\"Lisa\", 30, 20])\n\n# Lezen\nwith open(\"spelers.csv\", \"r\") as f:\n    reader = csv.DictReader(f)\n    for rij in reader:\n        print(f\"{rij['naam']}: {rij['kills']} kills\")\n```\n\n## JSON\n\n```python\nimport json\n\ndata = {\"server\": \"SMP\", \"spelers\": 20, \"online\": True}\n\n# Opslaan\nwith open(\"config.json\", \"w\") as f:\n    json.dump(data, f, indent=2)\n\n# Laden\nwith open(\"config.json\", \"r\") as f:\n    config = json.load(f)\n    print(config[\"server\"])  # SMP\n```",
+        },
+      ],
+    },
+    {
+      title: "Git & GitHub voor Beginners",
+      description: "Versiebeheeer met Git — leer je code opslaan, samenwerken en deployen via GitHub. Onmisbaar voor elke developer.",
+      category: "programming",
+      level: "BEGINNER" as const,
+      lessons: [
+        {
+          title: "Git Installeren & Eerste Commit",
+          content: "# Git Basis\n\nGit slaat de geschiedenis van je code op. Zo kun je altijd teruggaan naar een werkende versie.\n\n## Installeren\n\nDownload Git op [git-scm.com](https://git-scm.com)\n\n```bash\ngit --version   # controleer installatie\n\n# Jouw naam instellen (eenmalig)\ngit config --global user.name \"Milan Vos\"\ngit config --global user.email \"milan@mathhosting.nl\"\n```\n\n## Project starten\n\n```bash\nmkdir mijn-project\ncd mijn-project\ngit init         # Git starten in deze map\n```\n\n## Eerste commit\n\n```bash\n# Bestand aanmaken\necho \"# Mijn Project\" > README.md\n\n# Bestand toevoegen aan staging\ngit add README.md\n# Of alles toevoegen:\ngit add .\n\n# Commit maken (snapshot van je code)\ngit commit -m \"Eerste commit\"\n\n# Status bekijken\ngit status\n\n# Geschiedenis bekijken\ngit log\n```",
+        },
+        {
+          title: "GitHub & Remote Repository",
+          content: "# GitHub gebruiken\n\nGitHub slaat je code online op en maakt samenwerken mogelijk.\n\n## Repository aanmaken\n\n1. Ga naar [github.com](https://github.com)\n2. Klik op **New repository**\n3. Geef het een naam, klik **Create**\n\n## Code pushen naar GitHub\n\n```bash\n# GitHub als remote koppelen\ngit remote add origin https://github.com/jouwgebruiker/mijn-project.git\n\n# Code uploaden\ngit push -u origin main\n\n# Volgende keer simpelweg:\ngit push\n```\n\n## Workflow\n\n```bash\n# Nieuwe wijzigingen opslaan\ngit add .\ngit commit -m \"Beschrijving van wat je hebt gedaan\"\ngit push\n\n# Wijzigingen van GitHub ophalen\ngit pull\n\n# Status bekijken\ngit status\ngit log --oneline\n```\n\n## .gitignore\n\nBestanden die je NIET wilt uploaden:\n\n```gitignore\nnode_modules/\n.env\n*.log\n.DS_Store\ndist/\nbuild/\n```\n\n```bash\ngit add .gitignore\ngit commit -m \"Add gitignore\"\n```",
+        },
+      ],
+    },
+    {
+      title: "Command Line voor Beginners",
+      description: "Leer werken met de terminal/command line op Linux en Windows. De basis voor elke developer en serverbeheerder.",
+      category: "sysadmin",
+      level: "BEGINNER" as const,
+      lessons: [
+        {
+          title: "Navigeren in de Terminal",
+          content: "# Terminal Basis\n\nDe terminal (of command line) is een tekstinterface voor je computer. Als developer gebruik je dit dagelijks.\n\n## Linux/Mac Terminal & Windows PowerShell\n\n```bash\npwd                    # huidige map tonen\nls                     # bestanden tonen\nls -la                 # inclusief verborgen bestanden\ncd Documents           # map ingaan\ncd ..                  # één map terug\ncd ~                   # naar home map\ncd /                   # naar root map\n```\n\n## Windows CMD\n\n```cmd\ncd                     # huidige map tonen\ndir                    # bestanden tonen\ncd Documents           # map ingaan\ncd ..                  # één map terug\n```\n\n## Bestanden en mappen\n\n```bash\nmkdir mijn-map         # map aanmaken\ntouch bestand.txt      # leeg bestand (Linux/Mac)\necho \"tekst\" > bestand.txt  # bestand met inhoud\ncat bestand.txt        # inhoud tonen\ncp bestand.txt kopie.txt    # kopiëren\nmv bestand.txt nieuw.txt    # verplaatsen/hernoemen\nrm bestand.txt         # bestand verwijderen\nrm -r mijn-map         # map verwijderen\n```\n\n## Tip: Tab voor autocomplete!\n\nType de eerste letters van een bestandsnaam en druk op **Tab** — de terminal vult de rest in.",
+        },
+        {
+          title: "Processen en Packages",
+          content: "# Processen en Software Installeren\n\n## Software installeren op Linux\n\n```bash\n# Ubuntu/Debian\napt update                    # pakketlijst vernieuwen\napt install nginx             # installeren\napt remove nginx              # verwijderen\napt upgrade                   # alles updaten\n\n# Zoeken\napt search nodejs\n```\n\n## Processen beheren\n\n```bash\nps aux                        # alle processen tonen\ntop                           # live processenlijst (q om te sluiten)\nkill 1234                     # proces stoppen (vervang met PID)\nkill -9 1234                  # forceer stoppen\n\n# Systeemdiensten\nsystemctl status nginx         # status bekijken\nsystemctl start nginx          # starten\nsystemctl stop nginx           # stoppen\nsystemctl restart nginx        # herstarten\nsystemctl enable nginx         # bij opstarten starten\n```\n\n## Handige commando's\n\n```bash\n# Schijfruimte\ndf -h                          # schijfruimte overzicht\ndu -sh /var/www                # map-grootte\n\n# Geheugen\nfree -h                        # RAM overzicht\n\n# Netwerk\nip a                           # IP-adressen tonen\nping google.com                # verbinding testen\nss -tulnp                      # open poorten tonen\n\n# Bestanden zoeken\nfind / -name \"server.jar\"      # bestand zoeken\ngrep -r \"error\" /var/log       # tekst zoeken in bestanden\n```",
+        },
+      ],
+    },
   ];
 
   let createdCourses = 0;
