@@ -13,54 +13,119 @@ export async function POST() {
 
   const courses = [
     {
-      title: "Linux voor Beginners",
-      description: "Leer de basis van Linux: bestandssysteem, commando's, permissies en meer. Perfect voor iedereen zonder voorkennis.",
+      title: "Minecraft Plugin Development met Java",
+      description: "Leer hoe je Minecraft plugins bouwt met Java en de Spigot/Paper API. Van je eerste commando tot complete gameplay mechanieken.",
+      category: "programming",
+      level: "INTERMEDIATE" as const,
+      lessons: [
+        {
+          title: "Introductie tot Minecraft Plugin Dev",
+          content: "# Minecraft Plugin Development\n\n## Wat heb je nodig?\n- Java JDK 17+\n- IntelliJ IDEA (gratis)\n- Paper/Spigot API\n- Maven of Gradle\n\n## Je eerste plugin opzetten\n\n### Maven `pom.xml`\n```xml\n<repositories>\n  <repository>\n    <id>papermc</id>\n    <url>https://repo.papermc.io/repository/maven-public/</url>\n  </repository>\n</repositories>\n\n<dependencies>\n  <dependency>\n    <groupId>io.papermc.paper</groupId>\n    <artifactId>paper-api</artifactId>\n    <version>1.21.4-R0.1-SNAPSHOT</version>\n    <scope>provided</scope>\n  </dependency>\n</dependencies>\n```\n\n### `plugin.yml`\n```yaml\nname: MijnPlugin\nversion: 1.0.0\nmain: nl.mathhosting.mijnplugin.MijnPlugin\napi-version: 1.21\ndescription: Mijn eerste Minecraft plugin\nauthor: JouwNaam\n```",
+        },
+        {
+          title: "Je eerste commando maken",
+          content: "# Commando's in Minecraft Plugins\n\n## Hoofd klasse\n```java\npackage nl.mathhosting.mijnplugin;\n\nimport org.bukkit.plugin.java.JavaPlugin;\n\npublic class MijnPlugin extends JavaPlugin {\n    @Override\n    public void onEnable() {\n        getLogger().info(\"Plugin gestart!\");\n        getCommand(\"hallo\").setExecutor(new HalloCommand());\n    }\n\n    @Override\n    public void onDisable() {\n        getLogger().info(\"Plugin gestopt!\");\n    }\n}\n```\n\n## Commando klasse\n```java\npackage nl.mathhosting.mijnplugin;\n\nimport org.bukkit.command.Command;\nimport org.bukkit.command.CommandExecutor;\nimport org.bukkit.command.CommandSender;\nimport org.bukkit.entity.Player;\n\npublic class HalloCommand implements CommandExecutor {\n    @Override\n    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {\n        if (sender instanceof Player player) {\n            player.sendMessage(\"§aHallo \" + player.getName() + \"!\");\n        }\n        return true;\n    }\n}\n```\n\n### `plugin.yml` updaten\n```yaml\ncommands:\n  hallo:\n    description: Stuur een begroeting\n    usage: /hallo\n    permission: mijnplugin.hallo\n```",
+        },
+        {
+          title: "Events en Listeners",
+          content: "# Events in Minecraft Plugins\n\n## Wat zijn events?\nMinecraft vuurt events als spelers iets doen. Jij kunt hierop reageren.\n\n## Listener registreren\n```java\n// In onEnable():\ngetServer().getPluginManager().registerEvents(new SpelerListener(), this);\n```\n\n## Listener klasse\n```java\nimport org.bukkit.event.EventHandler;\nimport org.bukkit.event.Listener;\nimport org.bukkit.event.player.PlayerJoinEvent;\nimport org.bukkit.event.player.PlayerDeathEvent;\nimport org.bukkit.event.block.BlockBreakEvent;\n\npublic class SpelerListener implements Listener {\n\n    @EventHandler\n    public void onJoin(PlayerJoinEvent event) {\n        event.setJoinMessage(\"§e\" + event.getPlayer().getName() + \" §fheeft de server betreden!\");\n        event.getPlayer().sendMessage(\"§6Welkom op de server!\");\n    }\n\n    @EventHandler\n    public void onDeath(PlayerDeathEvent event) {\n        event.setDeathMessage(\"§c\" + event.getEntity().getName() + \" heeft het loodje gelegd!\");\n    }\n\n    @EventHandler\n    public void onBlockBreak(BlockBreakEvent event) {\n        event.getPlayer().sendMessage(\"§7Je brak: \" + event.getBlock().getType());\n    }\n}\n```",
+        },
+        {
+          title: "Config & Data opslaan",
+          content: "# Configuratie en Data Opslaan\n\n## config.yml aanmaken\n```java\n@Override\npublic void onEnable() {\n    saveDefaultConfig(); // maakt config.yml aan\n    String prefix = getConfig().getString(\"prefix\", \"[Plugin]\");\n    int maxKills = getConfig().getInt(\"max-kills\", 10);\n}\n```\n\n### config.yml\n```yaml\nprefix: \"[MijnPlugin]\"\nmax-kills: 10\nbericht-join: \"Welkom!\"\n```\n\n## Data opslaan met YamlConfiguration\n```java\nimport org.bukkit.configuration.file.YamlConfiguration;\nimport java.io.File;\n\nFile dataFile = new File(getDataFolder(), \"spelers.yml\");\nYamlConfiguration data = YamlConfiguration.loadConfiguration(dataFile);\n\n// Opslaan\ndata.set(\"speler.\" + uuid + \".kills\", kills);\ndata.save(dataFile);\n\n// Laden\nint kills = data.getInt(\"speler.\" + uuid + \".kills\", 0);\n```\n\n## Database (SQLite)\n```java\nConnection conn = DriverManager.getConnection(\"jdbc:sqlite:\" + getDataFolder() + \"/data.db\");\nStatement stmt = conn.createStatement();\nstmt.execute(\"CREATE TABLE IF NOT EXISTS kills (uuid TEXT, amount INT)\");\n```",
+        },
+      ],
+    },
+    {
+      title: "Discord Bot maken met JavaScript",
+      description: "Bouw je eigen Discord bot met Node.js en Discord.js. Van slash commands tot moderatie, muziek en server management bots.",
+      category: "programming",
+      level: "BEGINNER" as const,
+      lessons: [
+        {
+          title: "Discord Bot Setup",
+          content: "# Discord Bot met Discord.js\n\n## Benodigdheden\n- Node.js 18+\n- Discord Developer Portal account\n- npm\n\n## Project aanmaken\n```bash\nmkdir mijn-bot\ncd mijn-bot\nnpm init -y\nnpm install discord.js\n```\n\n## Bot aanmaken op Discord\n1. Ga naar [discord.com/developers](https://discord.com/developers)\n2. Nieuwe applicatie aanmaken\n3. Bot tab → Bot toevoegen\n4. Token kopiëren (geheim houden!)\n5. OAuth2 → Bot uitnodigen met permissions\n\n## Eerste bot (`index.js`)\n```javascript\nconst { Client, GatewayIntentBits } = require('discord.js');\n\nconst client = new Client({\n  intents: [\n    GatewayIntentBits.Guilds,\n    GatewayIntentBits.GuildMessages,\n    GatewayIntentBits.MessageContent,\n  ]\n});\n\nclient.once('ready', () => {\n  console.log(`Bot online als ${client.user.tag}`);\n});\n\nclient.on('messageCreate', (message) => {\n  if (message.content === '!ping') {\n    message.reply('Pong! 🏓');\n  }\n});\n\nclient.login('JOUW_BOT_TOKEN');\n```",
+        },
+        {
+          title: "Slash Commands",
+          content: "# Slash Commands met Discord.js\n\n## Slash commands registreren\n```javascript\nconst { REST, Routes, SlashCommandBuilder } = require('discord.js');\n\nconst commands = [\n  new SlashCommandBuilder()\n    .setName('ping')\n    .setDescription('Controleer of de bot online is'),\n  new SlashCommandBuilder()\n    .setName('info')\n    .setDescription('Serverinformatie weergeven'),\n];\n\nconst rest = new REST().setToken(process.env.TOKEN);\nawait rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });\n```\n\n## Commands afhandelen\n```javascript\nclient.on('interactionCreate', async (interaction) => {\n  if (!interaction.isChatInputCommand()) return;\n\n  if (interaction.commandName === 'ping') {\n    await interaction.reply({\n      content: `🏓 Pong! Latency: ${client.ws.ping}ms`,\n      ephemeral: true\n    });\n  }\n\n  if (interaction.commandName === 'info') {\n    const guild = interaction.guild;\n    await interaction.reply({\n      embeds: [{\n        title: guild.name,\n        fields: [\n          { name: 'Leden', value: guild.memberCount.toString(), inline: true },\n          { name: 'Kanalen', value: guild.channels.cache.size.toString(), inline: true },\n        ],\n        color: 0x5865F2\n      }]\n    });\n  }\n});\n```",
+        },
+        {
+          title: "Moderatie Bot",
+          content: "# Moderatie Functies\n\n## Ban & Kick commando's\n```javascript\nnew SlashCommandBuilder()\n  .setName('ban')\n  .setDescription('Ban een gebruiker')\n  .addUserOption(option =>\n    option.setName('gebruiker').setDescription('Wie bannen?').setRequired(true)\n  )\n  .addStringOption(option =>\n    option.setName('reden').setDescription('Reden voor ban')\n  )\n  .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)\n\n// Afhandelen:\nif (interaction.commandName === 'ban') {\n  const target = interaction.options.getUser('gebruiker');\n  const reden = interaction.options.getString('reden') ?? 'Geen reden opgegeven';\n\n  try {\n    await interaction.guild.members.ban(target, { reason: reden });\n    await interaction.reply(`✅ **${target.tag}** is gebanned.\\nReden: ${reden}`);\n  } catch (error) {\n    await interaction.reply({ content: '❌ Kon deze gebruiker niet bannen.', ephemeral: true });\n  }\n}\n```\n\n## Auto-moderatie\n```javascript\nconst VERBODEN_WOORDEN = ['spam', 'advertentie'];\n\nclient.on('messageCreate', async (message) => {\n  if (message.author.bot) return;\n\n  const bevat = VERBODEN_WOORDEN.some(woord =>\n    message.content.toLowerCase().includes(woord)\n  );\n\n  if (bevat) {\n    await message.delete();\n    await message.channel.send(`⚠️ ${message.author} Verboden inhoud verwijderd!`);\n  }\n});\n```",
+        },
+      ],
+    },
+    {
+      title: "Linux Server Setup voor Gameservers",
+      description: "Zet een Linux VPS op voor het hosten van Minecraft, Discord bots en andere gameservers. Van SSH tot firewall en automatisch opstarten.",
       category: "sysadmin",
       level: "BEGINNER" as const,
       lessons: [
-        { title: "Introductie tot Linux", content: "# Introductie tot Linux\n\nLinux is een open-source besturingssysteem dat de basis vormt van veel servers en systemen wereldwijd.\n\n## Wat is Linux?\nLinux is een kernel ontwikkeld door Linus Torvalds in 1991. Het wordt gebruikt in servers, smartphones (Android) en supercomputers.\n\n## Waarom Linux leren?\n- Gratis en open-source\n- Stabiel en veilig\n- Breed ingezet in ICT\n- Essentieel voor systeembeheer" },
-        { title: "Basis commando's", content: "# Basis Linux Commando's\n\n## Navigatie\n```bash\npwd    # huidige map\nls     # bestanden weergeven\ncd     # map wisselen\n```\n\n## Bestanden\n```bash\ntouch bestand.txt   # bestand aanmaken\nmkdir map          # map aanmaken\nrm bestand.txt     # bestand verwijderen\ncp bron doel       # kopiëren\nmv oud nieuw       # verplaatsen/hernoemen\n```\n\n## Inhoud bekijken\n```bash\ncat bestand.txt\nless bestand.txt\nhead -n 10 bestand.txt\n```" },
-        { title: "Permissies en gebruikers", content: "# Permissies in Linux\n\n## Permissie systeem\nElk bestand heeft 3 soorten permissies:\n- **r** = lezen (read)\n- **w** = schrijven (write)\n- **x** = uitvoeren (execute)\n\nVoor 3 groepen:\n- **u** = gebruiker (user/owner)\n- **g** = groep (group)\n- **o** = anderen (others)\n\n## Permissies aanpassen\n```bash\nchmod 755 bestand.sh\nchmod u+x script.sh\nchown gebruiker:groep bestand\n```\n\n## Gebruikers beheer\n```bash\nwhoami          # wie ben ik?\nsudo commando   # als root uitvoeren\nuseradd naam    # gebruiker aanmaken\npasswd naam     # wachtwoord instellen\n```" },
+        {
+          title: "Verbinden met SSH",
+          content: "# Verbinden met je VPS via SSH\n\n## Wat is SSH?\nSSH (Secure Shell) is een versleuteld protocol om op afstand in te loggen op een server.\n\n## Verbinden\n```bash\nssh root@jouw-server-ip\n# Of met een specifieke poort:\nssh -p 2222 root@jouw-server-ip\n```\n\n## SSH Key aanmaken (veiliger dan wachtwoord)\n```bash\n# Op jouw computer:\nssh-keygen -t ed25519 -C \"mijn-server\"\n\n# Public key naar server sturen:\nssh-copy-id root@jouw-server-ip\n\n# Nu inloggen zonder wachtwoord:\nssh root@jouw-server-ip\n```\n\n## Eerste server setup\n```bash\n# Updates installeren\napt update && apt upgrade -y\n\n# Tijdzone instellen\ntimedatectl set-timezone Europe/Amsterdam\n\n# Nieuwe gebruiker aanmaken (niet als root werken)\nadduser gameserver\nusermod -aG sudo gameserver\n```\n\n## UFW Firewall\n```bash\nufw allow ssh\nufw allow 25565/tcp  # Minecraft\nufw enable\nufw status\n```",
+        },
+        {
+          title: "Minecraft Server installeren",
+          content: "# Minecraft Server op Linux\n\n## Java installeren\n```bash\napt install -y openjdk-21-jre-headless\njava -version\n```\n\n## Server map aanmaken\n```bash\nmkdir -p /opt/minecraft\ncd /opt/minecraft\n\n# Paper downloaden (aanbevolen)\nwget https://api.papermc.io/v2/projects/paper/versions/1.21.4/builds/latest/downloads/paper-1.21.4.jar -O server.jar\n\n# EULA accepteren\necho 'eula=true' > eula.txt\n```\n\n## server.properties instellen\n```properties\nserver-port=25565\nmax-players=20\ndifficulty=normal\ngamemode=survival\nonline-mode=true\nserver-name=Mijn Server\nmotd=\\u00a76Welkom op mijn server!\n```\n\n## Systemd service aanmaken (auto-start)\n```bash\nnano /etc/systemd/system/minecraft.service\n```\n```ini\n[Unit]\nDescription=Minecraft Server\nAfter=network.target\n\n[Service]\nUser=gameserver\nWorkingDirectory=/opt/minecraft\nExecStart=/usr/bin/java -Xmx2G -Xms1G -jar server.jar nogui\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target\n```\n```bash\nsystemctl enable minecraft\nsystemctl start minecraft\nsystemctl status minecraft\n```",
+        },
+        {
+          title: "Server beheren & Backups",
+          content: "# Server Beheren en Backups\n\n## Screen / tmux gebruiken\n```bash\n# Screen installeren\napt install screen\n\n# Nieuwe sessie starten\nscreen -S minecraft\n\n# Server starten in screen\njava -Xmx2G -jar server.jar nogui\n\n# Loskoppelen (server blijft draaien)\nCtrl+A, daarna D\n\n# Terugkoppelen\nscreen -r minecraft\n```\n\n## Automatische backups\n```bash\n# Backup script aanmaken\nnano /opt/backup-minecraft.sh\n```\n```bash\n#!/bin/bash\nDATE=$(date +%Y-%m-%d)\nBACKUP_DIR=\"/opt/backups\"\nmkdir -p $BACKUP_DIR\n\n# Server wereld kopiëren\ntar -czf $BACKUP_DIR/minecraft-$DATE.tar.gz /opt/minecraft/world\n\n# Oude backups verwijderen (ouder dan 7 dagen)\nfind $BACKUP_DIR -name '*.tar.gz' -mtime +7 -delete\n\necho \"Backup voltooid: minecraft-$DATE.tar.gz\"\n```\n```bash\nchmod +x /opt/backup-minecraft.sh\n\n# Dagelijks uitvoeren via cron\ncrontab -e\n# Voeg toe:\n0 3 * * * /opt/backup-minecraft.sh\n```",
+        },
       ],
     },
     {
-      title: "Netwerken Fundamentals",
-      description: "Begrijp hoe netwerken werken: TCP/IP, subnetting, DNS, DHCP en firewalls. Essentieel voor elke ICT-professional.",
-      category: "networking",
-      level: "BEGINNER" as const,
-      lessons: [
-        { title: "TCP/IP Model", content: "# Het TCP/IP Model\n\n## Wat is TCP/IP?\nTCP/IP is het fundament van het internet. Het bestaat uit 4 lagen:\n\n1. **Applicatielaag** - HTTP, FTP, DNS\n2. **Transportlaag** - TCP, UDP\n3. **Internetlaag** - IP, ICMP\n4. **Netwerklaag** - Ethernet, WiFi\n\n## IP Adressen\nEen IPv4 adres bestaat uit 4 octetten: `192.168.1.1`\n\n- Publiek IP: bereikbaar via internet\n- Privé IP: alleen binnen lokaal netwerk\n\n## Belangrijke poorten\n| Poort | Protocol |\n|-------|----------|\n| 80    | HTTP     |\n| 443   | HTTPS    |\n| 22    | SSH      |\n| 25    | SMTP     |" },
-        { title: "Subnetting", content: "# Subnetting\n\n## Wat is een subnet?\nEen subnet deelt een netwerk op in kleinere segmenten.\n\n## Subnet masker\nVoorbeeld: `192.168.1.0/24`\n- `/24` = 255.255.255.0\n- 254 bruikbare hostadressen\n\n## CIDR notatie\n| CIDR | Hosts | Masker          |\n|------|-------|------------------|\n| /24  | 254   | 255.255.255.0   |\n| /25  | 126   | 255.255.255.128 |\n| /26  | 62    | 255.255.255.192 |\n| /30  | 2     | 255.255.255.252 |" },
-      ],
-    },
-    {
-      title: "Cybersecurity Basis",
-      description: "Leer de fundamenten van cybersecurity: bedreigingen, beveiliging, ethical hacking en best practices voor een veilige omgeving.",
-      category: "cybersecurity",
+      title: "Node.js Webhosting & REST API",
+      description: "Bouw en host je eigen webserver met Node.js en Express. Leer REST APIs maken, databases koppelen en deployen op een VPS.",
+      category: "webdev",
       level: "INTERMEDIATE" as const,
       lessons: [
-        { title: "Bedreigingen en aanvallen", content: "# Cybersecurity Bedreigingen\n\n## Soorten aanvallen\n\n### Malware\n- **Virus**: verspreidt via bestanden\n- **Ransomware**: versleutelt bestanden voor losgeld\n- **Spyware**: verzamelt informatie stiekem\n- **Trojan**: vermomt zich als legitiem programma\n\n### Netwerkaanvallen\n- **DDoS**: overbelasten van een server\n- **Man-in-the-Middle**: communicatie onderscheppen\n- **Phishing**: nep e-mails om gegevens te stelen\n- **SQL Injection**: kwaadaardige SQL in formulieren\n\n## CIA Triad\n- **Confidentiality** (Vertrouwelijkheid)\n- **Integrity** (Integriteit)\n- **Availability** (Beschikbaarheid)" },
-        { title: "Beveiliging best practices", content: "# Beveiligings Best Practices\n\n## Wachtwoorden\n- Gebruik minimaal 12 tekens\n- Mix van letters, cijfers en symbolen\n- Gebruik een password manager\n- Nooit hetzelfde wachtwoord hergebruiken\n\n## Multi-Factor Authenticatie (MFA)\nVoeg een extra beveiligingslaag toe:\n1. Iets wat je weet (wachtwoord)\n2. Iets wat je hebt (telefoon)\n3. Iets wat je bent (vingerafdruk)\n\n## Systeem beveiliging\n```bash\n# Firewall inschakelen\nufw enable\nufw allow ssh\nufw allow 80/tcp\n\n# Updates installeren\napt update && apt upgrade -y\n```" },
+        {
+          title: "Express Server opzetten",
+          content: "# Node.js & Express Server\n\n## Project aanmaken\n```bash\nmkdir mijn-api\ncd mijn-api\nnpm init -y\nnpm install express cors dotenv\n```\n\n## Basis server (`server.js`)\n```javascript\nconst express = require('express');\nconst cors = require('cors');\nrequire('dotenv').config();\n\nconst app = express();\nconst PORT = process.env.PORT || 3000;\n\napp.use(cors());\napp.use(express.json());\n\n// Routes\napp.get('/', (req, res) => {\n  res.json({ message: 'API is online!', versie: '1.0.0' });\n});\n\napp.get('/status', (req, res) => {\n  res.json({\n    status: 'online',\n    uptime: process.uptime(),\n    timestamp: new Date().toISOString()\n  });\n});\n\napp.listen(PORT, () => {\n  console.log(`Server draait op poort ${PORT}`);\n});\n```\n\n## `.env` bestand\n```\nPORT=3000\nDB_URL=mongodb://localhost/mijndb\nSECRET_KEY=geheim123\n```",
+        },
+        {
+          title: "REST API bouwen",
+          content: "# REST API Endpoints\n\n## CRUD operaties\n```javascript\n// In-memory opslag (gebruik database in productie)\nlet servers = [\n  { id: 1, naam: 'Minecraft SMP', ip: '1.2.3.4', poort: 25565, online: true },\n  { id: 2, naam: 'Survival Games', ip: '1.2.3.5', poort: 25566, online: false },\n];\n\n// GET alle servers\napp.get('/api/servers', (req, res) => {\n  res.json(servers);\n});\n\n// GET één server\napp.get('/api/servers/:id', (req, res) => {\n  const server = servers.find(s => s.id === parseInt(req.params.id));\n  if (!server) return res.status(404).json({ error: 'Niet gevonden' });\n  res.json(server);\n});\n\n// POST nieuwe server\napp.post('/api/servers', (req, res) => {\n  const { naam, ip, poort } = req.body;\n  const nieuw = { id: servers.length + 1, naam, ip, poort, online: false };\n  servers.push(nieuw);\n  res.status(201).json(nieuw);\n});\n\n// DELETE server\napp.delete('/api/servers/:id', (req, res) => {\n  servers = servers.filter(s => s.id !== parseInt(req.params.id));\n  res.json({ success: true });\n});\n```",
+        },
+        {
+          title: "Deployen op VPS met PM2",
+          content: "# Deployen op je VPS\n\n## PM2 Process Manager\n```bash\n# PM2 installeren\nnpm install -g pm2\n\n# App starten met PM2\npm2 start server.js --name mijn-api\n\n# Auto-start bij reboot\npm2 startup\npm2 save\n\n# Status bekijken\npm2 status\npm2 logs mijn-api\npm2 restart mijn-api\n```\n\n## Nginx als reverse proxy\n```bash\napt install nginx\nnano /etc/nginx/sites-available/mijn-api\n```\n```nginx\nserver {\n  listen 80;\n  server_name jouwdomein.nl;\n\n  location / {\n    proxy_pass http://localhost:3000;\n    proxy_http_version 1.1;\n    proxy_set_header Host $host;\n    proxy_set_header X-Real-IP $remote_addr;\n  }\n}\n```\n```bash\nln -s /etc/nginx/sites-available/mijn-api /etc/nginx/sites-enabled/\nnginx -t\nsystemctl reload nginx\n```\n\n## HTTPS met Let's Encrypt (gratis)\n```bash\napt install certbot python3-certbot-nginx\ncertbot --nginx -d jouwdomein.nl\n# Automatisch vernieuwen:\ncrontab -e\n# 0 0 * * * certbot renew --quiet\n```",
+        },
       ],
     },
     {
-      title: "Docker & Containers",
-      description: "Leer werken met Docker: containers bouwen, beheren en deployen. Van Dockerfile tot Docker Compose en introductie tot Kubernetes.",
+      title: "Docker voor Gameservers & Hosting",
+      description: "Gebruik Docker om Minecraft servers, Discord bots en webapplicaties te containeriseren. Meerdere servers draaien op één VPS.",
       category: "cloud",
       level: "INTERMEDIATE" as const,
       lessons: [
-        { title: "Introductie Docker", content: "# Docker Introductie\n\n## Wat is Docker?\nDocker is een platform voor containerisatie. Containers zijn lichte, draagbare eenheden die alles bevatten wat een applicatie nodig heeft.\n\n## Container vs VM\n| Container | Virtuele Machine |\n|-----------|------------------|\n| Deelt OS kernel | Eigen OS |\n| Snel opstarten | Langzaam opstarten |\n| Klein (MB) | Groot (GB) |\n| Minder isolatie | Volledige isolatie |\n\n## Basis commando's\n```bash\ndocker pull ubuntu          # image downloaden\ndocker run ubuntu           # container starten\ndocker ps                  # actieve containers\ndocker images              # beschikbare images\ndocker stop container_id   # container stoppen\n```" },
-        { title: "Dockerfile schrijven", content: "# Dockerfile\n\n## Wat is een Dockerfile?\nEen Dockerfile is een tekstbestand met instructies om een Docker image te bouwen.\n\n## Voorbeeld Dockerfile\n```dockerfile\nFROM node:18-alpine\n\nWORKDIR /app\n\nCOPY package*.json ./\nRUN npm install\n\nCOPY . .\n\nEXPOSE 3000\n\nCMD [\"node\", \"server.js\"]\n```\n\n## Image bouwen en uitvoeren\n```bash\ndocker build -t mijn-app .\ndocker run -p 3000:3000 mijn-app\n```\n\n## Docker Compose\n```yaml\nversion: '3'\nservices:\n  web:\n    build: .\n    ports:\n      - '3000:3000'\n  db:\n    image: postgres\n    environment:\n      POSTGRES_PASSWORD: secret\n```" },
+        {
+          title: "Docker Basis voor Servers",
+          content: "# Docker voor Hosting\n\n## Docker installeren op Ubuntu\n```bash\ncurl -fsSL https://get.docker.com | sh\nusermod -aG docker $USER\n```\n\n## Minecraft server in Docker\n```bash\ndocker run -d \\\n  --name minecraft \\\n  -p 25565:25565 \\\n  -v /opt/minecraft-data:/data \\\n  -e EULA=TRUE \\\n  -e TYPE=PAPER \\\n  -e VERSION=1.21.4 \\\n  -e MEMORY=2G \\\n  --restart unless-stopped \\\n  itzg/minecraft-server\n```\n\n## Container beheren\n```bash\ndocker ps                    # actieve containers\ndocker logs minecraft        # server logs bekijken\ndocker exec -it minecraft rcon-cli  # server console\ndocker stop minecraft        # server stoppen\ndocker start minecraft       # server starten\n```",
+        },
+        {
+          title: "Docker Compose voor meerdere servers",
+          content: "# Docker Compose\n\n## `docker-compose.yml`\n```yaml\nversion: '3.8'\n\nservices:\n  minecraft-smp:\n    image: itzg/minecraft-server\n    ports:\n      - '25565:25565'\n    volumes:\n      - ./smp-data:/data\n    environment:\n      EULA: 'TRUE'\n      TYPE: PAPER\n      VERSION: '1.21.4'\n      MEMORY: 2G\n      SERVER_NAME: 'SMP Server'\n    restart: unless-stopped\n\n  minecraft-skyblock:\n    image: itzg/minecraft-server\n    ports:\n      - '25566:25565'\n    volumes:\n      - ./skyblock-data:/data\n    environment:\n      EULA: 'TRUE'\n      TYPE: PAPER\n      MEMORY: 1G\n    restart: unless-stopped\n\n  discord-bot:\n    build: ./bot\n    environment:\n      TOKEN: ${DISCORD_TOKEN}\n    restart: unless-stopped\n    volumes:\n      - ./bot:/app\n\n  website:\n    image: nginx\n    ports:\n      - '80:80'\n      - '443:443'\n    volumes:\n      - ./website:/usr/share/nginx/html\n    restart: unless-stopped\n```\n\n```bash\n# Alles starten\ndocker compose up -d\n\n# Status\ndocker compose ps\n\n# Logs\ndocker compose logs -f minecraft-smp\n```",
+        },
       ],
     },
     {
-      title: "Web Development met HTML & CSS",
-      description: "Bouw je eerste website! Leer HTML voor structuur en CSS voor styling. Aan het einde maak je een volledige responsieve webpagina.",
-      category: "webdev",
+      title: "Webhosting & cPanel Beheer",
+      description: "Leer webhosting instellen, domeinen koppelen, e-mail configureren en websites deployen. Perfect voor iedereen die hosting wil aanbieden.",
+      category: "sysadmin",
       level: "BEGINNER" as const,
       lessons: [
-        { title: "HTML Fundamentals", content: "# HTML Fundamentals\n\n## Wat is HTML?\nHTML (HyperText Markup Language) is de basis van elke webpagina. Het geeft structuur aan content.\n\n## Basis HTML structuur\n```html\n<!DOCTYPE html>\n<html lang=\"nl\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Mijn Pagina</title>\n</head>\n<body>\n  <h1>Welkom!</h1>\n  <p>Dit is mijn eerste webpagina.</p>\n</body>\n</html>\n```\n\n## Veelgebruikte elementen\n- `<h1>` t/m `<h6>` - Koppen\n- `<p>` - Paragraaf\n- `<a href=\"\">` - Link\n- `<img src=\"\">` - Afbeelding\n- `<ul>/<li>` - Lijst\n- `<div>` - Container" },
-        { title: "CSS Styling", content: "# CSS Styling\n\n## Wat is CSS?\nCSS (Cascading Style Sheets) bepaalt het uiterlijk van HTML elementen.\n\n## CSS toevoegen\n```html\n<link rel=\"stylesheet\" href=\"style.css\">\n```\n\n## Basis CSS\n```css\nbody {\n  font-family: Arial, sans-serif;\n  background-color: #f0f0f0;\n}\n\nh1 {\n  color: #333;\n  font-size: 2rem;\n}\n\n.knop {\n  background: #0066cc;\n  color: white;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n```\n\n## Flexbox Layout\n```css\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 20px;\n}\n```" },
+        {
+          title: "Domeinen & DNS uitgelegd",
+          content: "# Domeinen en DNS\n\n## Wat is DNS?\nDNS (Domain Name System) vertaalt domeinnamen naar IP-adressen.\n\n## DNS Records\n| Type  | Functie                          | Voorbeeld                    |\n|-------|----------------------------------|------------------------------|\n| A     | Domein → IPv4                    | `mathhosting.nl → 1.2.3.4`  |\n| AAAA  | Domein → IPv6                    | `mathhosting.nl → ::1`       |\n| CNAME | Alias naar ander domein          | `www → mathhosting.nl`       |\n| MX    | E-mail server                    | `mail.mathhosting.nl`        |\n| TXT   | Verificatie / SPF / DKIM         | `v=spf1 include:...`         |\n| NS    | Nameservers                      | `ns1.mathhosting.nl`         |\n\n## DNS instellen\n```\n# A-record voor website\nmathhosting.nl.    A    1.2.3.4\n\n# WWW\nwww               CNAME  mathhosting.nl.\n\n# E-mail\n@                 MX     10 mail.mathhosting.nl.\n\n# SPF (spam voorkomen)\n@                 TXT    \"v=spf1 ip4:1.2.3.4 ~all\"\n```\n\n## DNS propagatie controleren\n```bash\nnslookup mathhosting.nl\ndig mathhosting.nl A\n```",
+        },
+        {
+          title: "SSL Certificaten & HTTPS",
+          content: "# SSL & HTTPS instellen\n\n## Waarom HTTPS?\n- Versleutelde verbinding\n- Vertrouwen van bezoekers\n- Betere Google ranking\n- Verplicht voor wachtwoorden & betalingen\n\n## Let's Encrypt (gratis SSL)\n```bash\n# Certbot installeren\napt install certbot python3-certbot-nginx\n\n# Certificaat aanvragen\ncertbot --nginx -d jouwdomein.nl -d www.jouwdomein.nl\n\n# Auto-vernieuwen instellen\ncrontab -e\n# Toevoegen:\n0 2 * * * certbot renew --quiet && systemctl reload nginx\n```\n\n## Nginx HTTPS configuratie\n```nginx\nserver {\n    listen 80;\n    server_name jouwdomein.nl www.jouwdomein.nl;\n    return 301 https://$server_name$request_uri;\n}\n\nserver {\n    listen 443 ssl;\n    server_name jouwdomein.nl;\n\n    ssl_certificate /etc/letsencrypt/live/jouwdomein.nl/fullchain.pem;\n    ssl_certificate_key /etc/letsencrypt/live/jouwdomein.nl/privkey.pem;\n\n    root /var/www/jouwdomein;\n    index index.html;\n}\n```",
+        },
       ],
     },
   ];
@@ -107,14 +172,14 @@ export async function POST() {
     });
   }
 
+  await seedBadges();
+
   return NextResponse.json({
     success: true,
     createdCourses,
     createdLessons,
     adminEmail,
     adminPassword: "Admin123!",
+    badges: "seeded",
   });
-
-  await seedBadges();
-  return NextResponse.json({ ok: true, courses: createdCourses, lessons: createdLessons, adminEmail, adminPassword: "Admin123!", badges: "seeded" });
 }
