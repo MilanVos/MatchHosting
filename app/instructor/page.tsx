@@ -137,10 +137,10 @@ export default function InstructorPage() {
               </div>
               <div className="flex items-center gap-2 ml-4">
                 <Link
-                  href={`/admin/courses/${course.id}/lessons/new`}
+                  href={`/instructor/courses/${course.id}/lessons`}
                   className="rounded-lg border border-[#2d2d3e] px-3 py-1.5 text-xs text-gray-400 hover:text-white hover:border-indigo-500/40 transition-all flex items-center gap-1"
                 >
-                  <Plus className="h-3.5 w-3.5" /> Les
+                  <Plus className="h-3.5 w-3.5" /> Lessen
                 </Link>
                 <button
                   onClick={() => togglePublish(course)}
