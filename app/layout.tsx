@@ -11,7 +11,7 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Mathhosting TechForge – ICT Leerplatform",
+  title: "MatchHosting TechForge – ICT Leerplatform",
   description:
     "Leer ICT, techniek en digitale vaardigheden. Netwerken, cybersecurity, webdevelopment, cloud en meer. Voor iedereen, van beginner tot gevorderd.",
 };

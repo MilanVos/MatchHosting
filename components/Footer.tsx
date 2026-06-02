@@ -12,7 +12,7 @@ export default function Footer() {
                 <Zap className="h-5 w-5 text-white" />
               </div>
               <span className="font-bold text-white">
-                <span className="gradient-text">Mathhosting</span>{" "}
+                <span className="gradient-text">MatchHosting</span>{" "}
                 <span className="text-gray-400 text-sm">TechForge</span>
               </span>
             </Link>
@@ -52,7 +52,7 @@ export default function Footer() {
 
         <div className="border-t border-[#1e1e2e] mt-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-600 text-sm">
-            &copy; {new Date().getFullYear()} Mathhosting TechForge. Alle rechten voorbehouden.
+            &copy; {new Date().getFullYear()} MatchHosting TechForge. Alle rechten voorbehouden.
           </p>
           <p className="text-gray-600 text-sm">
             Gemaakt met passie voor ICT-onderwijs

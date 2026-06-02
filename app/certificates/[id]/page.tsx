@@ -46,7 +46,7 @@ export default async function CertificatePage({ params }: { params: Promise<{ id
             </div>
 
             <div className="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-2">
-              Mathhosting TechForge
+              MatchHosting TechForge
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">Certificaat van Voltooiing</h1>
             <div className="w-24 h-1 gradient-bg mx-auto rounded-full mb-8" />

@@ -107,7 +107,7 @@ export default async function HomePage() {
           </h1>
 
           <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Mathhosting TechForge is het leerplatform voor iedereen die écht
+            MatchHosting TechForge is het leerplatform voor iedereen die écht
             iets wil leren in de ICT. Praktijkgericht, op eigen tempo, voor
             beginners tot gevorderden.
           </p>
@@ -187,7 +187,7 @@ export default async function HomePage() {
               <div className="p-12">
                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
                   Waarom{" "}
-                  <span className="gradient-text">Mathhosting TechForge</span>?
+                  <span className="gradient-text">MatchHosting TechForge</span>?
                 </h2>
                 <p className="text-gray-400 mb-8 leading-relaxed">
                   Wij geloven dat talent niet afhangt van diploma&apos;s.

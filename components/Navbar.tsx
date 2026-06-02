@@ -27,7 +27,7 @@ export default function Navbar() {
               <Zap className="h-5 w-5 text-white" />
             </div>
             <span className="font-bold text-white">
-              <span className="gradient-text">Mathhosting</span>{" "}
+              <span className="gradient-text">MatchHosting</span>{" "}
               <span className="text-gray-400 text-sm">TechForge</span>
             </span>
           </Link>
